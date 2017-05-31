@@ -1,0 +1,28 @@
+{% load cropping %}
+{% load staticfiles %}
+{% load humanize %}
+<div class="comment-wrapper " style="margin-left:{{ comment.depth|add:comment.depth }}em;" data-value="{{ comment.id }}" id="{{ comment.id }}" data-url="cid{{ comment.path_as_string }}">
+    <div class="comment-body">
+        <div class="comment-left">
+            {% if comment.author.avatar %}
+                <img src="{% cropped_thumbnail comment.author 'avatar_cropping' scale=0.2 %}" class="post-avatar">
+            {% else %}
+                <img src="{% static 'img/users/user_noimage.png' %}" width="60px" height="60px" class="post-avatar">
+            {% endif %}
+        </div>
+        <div class="comment-right">
+            <a href="{{ comment.author.get_absolute_url}}"> {{ comment.author.username|title }}</a> <i style="color: #999">&bull;</i>
+            <span style="color: #555">{{ comment.created|naturaltime }}</span>
+            <div class="comment-content">{{ comment.content }}</div>
+            <div class="comment-footer">
+                {{ comment.path }}
+                <span class="">
+                    <span>{{ comment.rating }}</span>
+                    <i class="fa fa-thumbs-o-up"></i> |
+                    <i class="fa fa-thumbs-o-down"></i> &bull;
+                    <a class="reply" href="{{ post.get_absolute_url }}"> reply</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

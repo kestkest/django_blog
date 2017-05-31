@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load cropping %}
+{% load staticfiles %}
+{% block content %}
+<div class="container">
+    <div class="content">
+        {% if user.is_authenticated %}
+            {% for f in user.followees.all %}
+                <div class="inline-block followee">
+                    <a href="{{ f.get_absolute_url }}" >
+                    {% if f.avatar.url != None %}
+                        <img src="{% cropped_thumbnail f 'avatar_cropping' scale=0.66 %}">
+                    {% else %}
+                        <img src="{% static 'img/users/user_noimage.png' %}" alt="{{ post.author.username }}" height="200px" width="200px">
+                    {% endif %}
+                    </a>
+                    <p class="center"><a href="{{ f.get_absolute_url }}" >{{f.username}}</a></p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="center">
+            <p>Not available for anonymous users</p>
+            </div>
+        {% endif %}
+    </div>
+
+</div>
+{% endblock content %}

@@ -1,0 +1,59 @@
+{% load cropping %}
+{% load staticfiles %}
+{% load humanize %}
+{% for post in posts %}
+    <div class="post clearfix">
+        <div class="row" style="padding-left: 22px">
+            <div >
+
+                <h2 class="post-list-header">
+                    <span>
+                    {% if post.author.avatar %}
+                        <img src="{% cropped_thumbnail post.author 'avatar_cropping' scale=0.2 %}" class="post-avatar">
+                    {% else %}
+                        <img src="{% static 'img/users/user_noimage.png' %}" width="60px" height="60px" class="post-avatar">
+                    {% endif %}
+                    </span>
+                    <div class="top inline-block" style="width:91%">
+                    <div class="inline-block top">
+                        <a href="{{ post.author.get_absolute_url }}" class="user-link">{{ post.author.username }}</a>
+                        wrote - <a class="post-link" href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+
+                    </div>
+                    {% if user == post.author %}
+                    <div class="post-edit post-list-edit pull-right">
+                        <a href="{% url 'posts:PostUpdate' post.slug %}" title="edit post"><i class="fa fa-pencil" aria-hidden="true" ></i></a>
+                    </div>
+                    {% else %}
+                    <div class="post-edit post-list-edit pull-right">
+                        <a href="#" title="edit post"></a>
+                    </div>
+                    {% endif %}
+                    <div class="post-created">
+                        {{ post.created|naturaltime }}
+                    </div>
+
+
+                    </div>
+                </h2>
+
+            </div>
+        </div>
+
+        <div class="post-body">{{ post.body|safe }}</div>
+        <div class="post-footer">
+            <div class="post-list tags">
+                <span>Tags:
+                    {% for tag in post.tags.all %}
+                        <a href="{{ tag.get_by_user }}" class="tag">{{ tag.name }}</a>
+                    {% empty %}
+                        No tags were added for this entry
+                    {% endfor %}
+                </span>
+            </div>
+            <div class="comment">
+                <span class="comment-count"><a href="{{ post.get_absolute_url }}?next=#comments">comments ({{ post.comments.count }})</a></span>
+            </div>
+        </div>
+    </div>
+{% endfor %}

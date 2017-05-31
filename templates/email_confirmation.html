@@ -1,0 +1,152 @@
+{% load staticfiles %}
+<div class="wrapper" style="
+  width: 800px;
+  margin: 0 auto;
+  ">
+	<div class="container" style="display: inline-block;
+			font-size: 18px;
+			-webkit-border-radius: 5px;
+			        border-radius: 5px;
+			-webkit-box-sizing: border-box;
+			   -moz-box-sizing: border-box;
+			        box-sizing: border-box;
+			-webkit-box-shadow: 0px 2px 6px 1px #999 ;
+			        box-shadow: 0px 2px 6px 1px #999;
+			font-family: sans-serif;
+			color: #444;
+			width: 400px;
+			text-align: -webkit-center;
+			background-color: white;">
+		<div class="body" style="margin-top: 5px;
+			border-bottom: 1px solid #ccc;
+			padding-bottom: 13px;">
+			<p class="header-content" style="padding: 5px 15px;
+			margin: 0;">Hello, <strong>{{ username }}</strong>! Please, complete your registration.</p>
+			<p class="header-content" style="padding: 5px 15px;
+			margin: 0;">Press the button above to activate your account</p>
+			<a  class="activate" href="{{ url }}" style="display: inline-block;
+			margin-top: 10px;
+			-webkit-border-radius: 3px;
+			        border-radius: 3px;
+			text-decoration: none;
+			padding: 10px 10px;
+			color: white;
+			background: #d58a00;
+			/*background: orange;*/
+			-webkit-transition: 0.3s;
+			   -moz-transition: 0.3s;
+			    -ms-transition: 0.3s;
+			     -o-transition: 0.3s;
+			        transition: 0.3s;" 
+			onmouseover="this.style.background='orange'; this.style.boxShadow='0 2px 6px 3px #ffd68a'; this.style.transition='0.5s';"
+			onmouseout="this.style.transition='1s'; this.style.background='#d58a00'; this.style.boxShadow='';" 
+
+			>Activate</a>
+		</div>
+		<div class="footer" style="padding: 10px 15px;
+			text-align: center;">
+			<a href="{% url 'posts:index' %}"><img src="{{ request.get_host }}{%  static 'img/logo.png' %}" width="30px" height="30px" style="
+			opacity: 0.5;
+			-webkit-transition: 0.3s;
+			   -moz-transition: 0.3s;
+			    -ms-transition: 0.3s;
+			     -o-transition: 0.3s;
+			        transition: 0.3s;"
+			onmouseover="this.style.opacity='1';"
+			onmouseout="this.style.opacity='0.5'">
+			</a>
+		</div>
+	</div>
+</div>
+
+<style>
+	/*.container {
+		display: inline-block;
+		font-size: 18px;
+		-webkit-border-radius: 5px;
+		        border-radius: 5px;
+		-webkit-box-sizing: border-box;
+		   -moz-box-sizing: border-box;
+		        box-sizing: border-box;
+		-webkit-box-shadow: 0px 2px 6px 1px #999 ;
+		        box-shadow: 0px 2px 6px 1px #999;
+		font-family: sans-serif;
+		color: #444;
+		width: 400px;
+		text-align: -webkit-center;
+		
+		
+	} */
+
+	
+
+	.header {
+		/*background: #F48024;*/
+	}
+
+/*	.header-content {
+		padding: 5px 15px;
+		margin: 0;
+	} 
+
+	.body {
+		margin-top: 5px;
+		border-bottom: 1px solid #ccc;
+		padding-bottom: 13px;
+	}*/
+
+	/*.activate {
+		display: inline-block;
+		margin-top: 10px;
+		-webkit-border-radius: 3px;
+		        border-radius: 3px;
+		text-decoration: none;
+		padding: 10px 10px;
+		color: white;
+		background: #d58a00;
+		/*background: orange;*/
+		-webkit-transition: 0.3s;
+		   -moz-transition: 0.3s;
+		    -ms-transition: 0.3s;
+		     -o-transition: 0.3s;
+		        transition: 0.3s;
+	}*/
+
+	.activate:hover {
+		-webkit-box-shadow: 0 2px 6px 3px #ffd68a;
+		        box-shadow: 0 2px 6px 3px #ffd68a;
+		background: orange;
+		-webkit-transition: 0.3s;
+		   -moz-transition: 0.3s;
+		    -ms-transition: 0.3s;
+		     -o-transition: 0.3s;
+		        transition: 0.3s;
+	} 
+
+	.footer {
+		padding: 10px 15px;
+		text-align: center;
+	}
+
+	.footer img {
+		opacity: 0.5;
+		-webkit-transition: 0.3s;
+		   -moz-transition: 0.3s;
+		    -ms-transition: 0.3s;
+		     -o-transition: 0.3s;
+		        transition: 0.3s;
+	}
+
+	.footer img:hover {
+		opacity: 1;
+		-webkit-transition: 0.3s;
+		   -moz-transition: 0.3s;
+		    -ms-transition: 0.3s;
+		     -o-transition: 0.3s;
+		        transition: 0.3s;
+		    
+	} 
+
+	
+
+</style>

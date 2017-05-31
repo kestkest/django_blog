@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %} Edit your post {% endblock title %}
+
+{% block content %}
+<div class="container">
+<div class="post-control">
+    <a class="delete delete-post" href="{% url 'posts:PostDelete' post.slug %}" data-slug="{{ post.slug }}" data-redirect="{% url 'posts:index' %}" title="delete entry">DELETE</a>
+</div><br>
+    <form method="post" action="{% url 'posts:PostUpdate' post.slug %}">
+        {% csrf_token %}
+        {% if form.media %} {{ form.media }} {% endif %}
+        {% for field in form.visible_fields %}
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label><br>
+                <div>
+                    {{ field }}<br>
+                    {{ field.help_text }}
+                </div><br>
+                {% if field.errors %}
+                     {% for error in field.errors %}
+                        <p>{{ error }} - {{ field.label }} </p>
+                     {% endfor %}
+                {% endif %}
+
+        {% endfor %}
+        <!--{{ form.media }}-->
+        <!--{{ form.as_p }}-->
+        {{ tags }}
+        <input type="submit" value="Save" class="save save-post"/>
+
+    </form>
+</div>
+{% include 'modal.html' %}
+{% endblock content %}
+{% block js %}
+{% load staticfiles %}
+<script src="{% static 'posts/js/ajax_setup.js' %}"></script>
+<script src="{% static 'posts/js/ajax_post_delete.js' %}"></script>
+{% endblock js %}

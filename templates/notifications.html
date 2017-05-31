@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load cropping %}
+{% load humanize %}
+{% block content %}
+    <div class="container">
+        <ul class="notification-list">
+            <h2>Your notifications</h2><hr>
+            {% for n in notes %}
+            <li class="note">
+                <div class="inline-block">
+                    {% if n.from_user.avatar.url != None %}
+                        <a href="{{ n.from_user.get_absolute_url }}"><img src="{% cropped_thumbnail n.from_user 'avatar_cropping' scale=0.20 %}"></a>
+                    {% else %}
+                        <a href="{{ n.from_user.get_absolute_url }}"><img src="{% static 'img/users/user_noimage.png' %}" alt="{{ n.from_user.username }}" height="60px" width="60px"></a>
+                    {% endif %}
+                </div>
+                <div class="inline-block top">
+                    <span>{{ n|safe }}: "{{ n.post.title }}"</span>
+                    <p> {{ n.created|naturaltime }}</p>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+        {% include 'pagination.html' %}
+    </div>
+{% endblock content %}
+
+{% block js %}
+{% endblock js %}
+800 dpi 0.36

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %} Welcome {% endblock title %}
+{% load staticfiles %}
+{% load humanize %}
+{% block content %}
+<div class="center">
+    <div class="image-banner ">
+        <img src="{% static 'img/logo.jpg' %}" alt="testlogo">
+    </div>
+</div>
+<div class="container">
+    <h1 style="text-align: center">Latest posts</h1>
+    <div class="left-side">
+      {% include 'post_list.html' %}
+    </div>
+    <div class="right-side">
+        <div><p>Most popular posts</p></div>
+        <div><p>Most popular tags </p>
+            {% for tag in popular_tags %}
+                <p class="tag">{{ tag.name }}</p>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="content">
+        {% include 'pagination.html' %}
+    </div>
+
+</div>
+{% endblock content %}
+{% block js %}
+<script src="{% static 'posts/js/ajax_setup.js' %}"></script>
+{% endblock js %}

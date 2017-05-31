@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <div class="content">
+        <div class="center">
+            <form action="{% url 'login' %}" method="post">
+                {% csrf_token %}
+                {% if form.media %} {{ form.media }} {% endif %}
+                {% for field in form.visible_fields %}
+                    <div class="row">
+                        <div class="left-col label-left">
+                            <label for="{{ field.id_for_label }}">{{ field.label }}: </label>
+                        </div>
+                        <div class="right-col">
+                            {{ field }}<br>
+                            <span class="help-text">{{ field.help_text }}</span>
+                        </div>
+                    </div><br>
+                    {% if field.errors %}
+                         {% for error in field.errors %}
+                            <p>{{ error }} - {{ field.label }} </p>
+                         {% endfor %}
+                    {% endif %}
+
+                {% endfor %}
+                <input type="submit" value="Submit" class="submit"/>
+            </form>
+        </div>
+	</div>
+</div>
+{% endblock %}

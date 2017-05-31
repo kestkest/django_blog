@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} {{ title }} {% endblock %}</title>
+    {% load static %}
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'posts/css/styles.css' %}">
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"
+      integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+      crossorigin="anonymous"></script>
+    {% block head %}{% endblock head %}
+    {% block css %}
+    {% endblock css %}
+    <script src="{% static '/js/common_stuff.js' %}"></script>
+    <script src="{% static '/js/follow_unfollow.js' %}"></script>
+    <script src="https://use.fontawesome.com/8c3705cce2.js"></script>
+</head>
+<body>
+    <div class="center">
+        <div class="header-container">
+            <div class="header header-left top">
+                <ul>
+                    <li><a href="{% url "posts:index" %}"><i class="fa fa-home"><span> Homepage</span></i></a></li>
+                    <li><a href="{% url 'core:followees' %}"><i class="fa fa-user"><span> My subscriptions</span></i></a></li>
+                    <li><a href="{% url 'feed:feed' %}">Feed</a></li>
+                    <li class="test"><a href="#">Test</a></li>
+                </ul>
+            </div>
+            <div class="header header-right">
+
+                {% if user.is_anonymous %}
+                <ul>
+                    <li><a href="{% url "login" %}">login</a></li>
+                    <li><a href="{% url "core:signup" %}">register</a></li>
+                {% else %}
+                    <li class="notification-alert "><a href="" class="notify"><i class="fa fa-bell fa-lg" ></i>{% if count %}<span id="n-count">{{ count }}{% endif %}</span>Notifications</a>
+                        {% if notifications %}
+                        <ul class="notifications" id="notifications" data-url="{% url 'notifications:mark-as-read' %}">
+                            {% for n in short %}
+                                <li class="notification">{{ n|safe }}</li>
+                            {% endfor %}
+                            <li class="notification"><a href="{% url "notifications:notification-list" username=request.user.username %}" class="link nohover notelist">see all</a></li>
+                        </ul>
+                        {% endif %}
+                    </li>
+                    <li class="usr-btn" id="user-btn"><a href="#" >{{ user.username }} <span style="font-size:14px">&#9662;</span></a>
+                        <ul class="dropdown">
+                            <li><a href="{% url 'posts:PostCreate' %}">New post</a></li>
+                            <li><a href="{% url 'logout' %}">Logout</a></li>
+                            <li><a href="{{ user.get_absolute_url }}">My profile</a> </li>
+                            {% if user.username == 'gnom' %}<li><a href="{% url 'admin:index' %}">Admin</a></li> {% endif %}
+                        </ul>
+                    </li>
+                </ul>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div style="min-height: 100px"></div>
+    {% block content %}
+    {% endblock content %}
+
+    {% block js %}
+    {% endblock js %}
+
+</body>
+</html>

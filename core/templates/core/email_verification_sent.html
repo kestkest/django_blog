@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container" style="text-align: center">
+    <div class="content">
+        <p>Thank you for registering!</p>
+        <p>The verification email has been sent to you.</p>
+        <p><a href="{% url 'posts:index' %}" style="color: orange; text-decoration: underline">Back to index page</a></p>
+    </div>
+</div>
+{% endblock content %}

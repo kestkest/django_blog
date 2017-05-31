@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %} User: {{ user_obj.username }} {% endblock title %}
+{% block content %}
+{% load static %}
+{% load cropping %}
+<div class="container">
+    <div class="content">
+        <div class="personal-data">
+            <div class="row user-head">
+                <div class="left-col">
+                   {% if not user_obj.avatar %}
+                    <img src="{% static 'img/users/user_noimage.png' %}" width="100px" height="100px">
+                    {% else %}
+                    <img  src="{% cropped_thumbnail user_obj 'avatar_cropping' scale=0.3 %}">
+                    {% endif %}
+                </div>
+                {% if user == user_obj %}<p class="edit-user" style="float: right; margin-right: 10px; margin-top: -10px"><a href="{% url 'core:user-update' slug=user_obj.slug %}">edit</a></p>{% endif %}
+                <div class="right-col">
+
+                    <p class="user-head"><strong><a href="{{ user.obj.get_absolute_url }}">{{ user_obj.username }}</a></strong></p>
+                    <p class="user-head">posts:<a href="{% url 'posts:user-posts' slug=user_obj.slug %}" class="link"> {{ data.posts }}</a></p>
+                    <p class="user-head">Popularity: 0</p>
+                </div>
+            </div>
+         {% for field, value in data.items %}
+            {% if field != 'posts' %}
+            <div class="row">
+                <div class="left-col">{{ field|title }}:</div>
+                <div class="right-col">{{ value }}</div>
+            </div>
+            {% endif %}
+        {% endfor %}
+        </div>
+    </div>
+    <div class="content">
+        <h1 style="margin-top: 0">Latest activity</h1>
+        {% for action in user_obj.actions.all %}
+        <div class="recent-activity">
+            {{ action|safe }}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}
+

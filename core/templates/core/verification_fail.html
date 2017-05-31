@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container" style="text-align: center">
+    <div class="content">
+        {{ request.path }}<br>
+        {{ user }}
+        <p>It seem that your token is either invalid or outdated</p>
+        <p><a href="{{ url }}" style="color: orange; text-decoration: underline">Reset token</a></p>
+    </div>
+</div>
+{% endblock content %}
